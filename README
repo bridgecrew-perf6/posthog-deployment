@@ -1,0 +1,19 @@
+due to I can't volume the neccessary data in ./docker directory
+I'm using the clickhouse server from docker compose
+
+Step to deploy these services
+
+step 1: start the clickhouse using docker-compose
+docker-compose up clickhouse -d 
+
+
+step 2: run this list of commands in list-of-service.txt file
+
+
+step 3: adjust all hostnames available in web-deployment.yaml to connect "web" service with other services
+
+
+step 4: re-deploy the "web" service
+kubectl apply -f web-deployment.yaml 
+
+

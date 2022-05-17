@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: clickhouse
+  name: clickhouse
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: clickhouse
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: clickhouse
+    spec:
+      containers:
+        - image: yandex/clickhouse-server:21.6.5.37
+          name: clickhouse
+          ports:
+            - containerPort: 8123
+            - containerPort: 9000
+            - containerPort: 9440
+            - containerPort: 9009
+          resources: {}
+          # volumeMounts:
+          #   - mountPath: /idl
+          #     name: clickhouse-claim0
+          #   - mountPath: /docker-entrypoint-initdb.d
+          #     name: clickhouse-claim1
+          #   - mountPath: /etc/clickhouse-server/config.xml
+          #     name: clickhouse-claim2
+          #   - mountPath: /etc/clickhouse-server/users.xml
+          #     name: clickhouse-claim3
+      restartPolicy: Always
+      # volumes:
+      #   - name: clickhouse-claim0
+      #     hostPath:
+      #       path: ./ee/idl
+      #       type: DirectoryOrCreate
+      #   - name: clickhouse-claim1
+      #     hostPath:
+      #       path: /docker/clickhouse/docker-entrypoint-initdb.d
+      #       type: FileOrCreate
+      #   - name: clickhouse-claim2
+      #     hostPath:
+      #       path: /docker/clickhouse/config.xml
+      #       type: FileOrCreate
+      #   - name: clickhouse-claim3
+      #     hostPath:
+      #       path: /docker/clickhouse/users.xml
+      #       type: FileOrCreate
+status: {}

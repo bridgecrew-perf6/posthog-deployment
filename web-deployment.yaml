@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: web
+  name: web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: web
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: web
+    spec:
+      containers:
+        - env:
+            - name: CLICKHOUSE_DATABASE
+              value: posthog
+            - name: CLICKHOUSE_HOST
+              value: 192.168.49.1
+            - name: CLICKHOUSE_SECURE
+              value: "false"
+            - name: CLICKHOUSE_VERIFY
+              value: "false"
+            - name: DATABASE_URL
+              value: postgres://posthog:posthog@10.105.110.19:5432/posthog
+            - name: DISABLE_SECURE_SSL_REDIRECT
+              value: "true"
+            - name: KAFKA_HOSTS
+              value: kafka:9092
+            - name: KAFKA_URL
+              value: kafka://kafka
+            - name: PGHOST
+              value: db
+            - name: PGPASSWORD
+              value: posthog
+            - name: PGUSER
+              value: posthog
+            - name: REDIS_URL
+              value: redis://10.96.227.126:6379/
+            - name: SECRET_KEY
+              value: thisisaverysecretkey
+          image: posthog/posthog:latest
+          name: posthog-web
+          ports:
+            - containerPort: 8000
+          resources: {}
+      restartPolicy: Always
+status: {}
