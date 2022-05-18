@@ -4,11 +4,12 @@ metadata:
   annotations:
     kompose.cmd: kompose convert
     kompose.version: 1.26.0 (40646f47)
-  creationTimestamp: null
+  
   labels:
     io.kompose.service: pgadmin
   name: pgadmin
 spec:
+  type: NodePort
   ports:
     - name: "8081"
       port: 8081

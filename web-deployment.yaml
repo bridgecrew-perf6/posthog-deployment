@@ -4,7 +4,6 @@ metadata:
   annotations:
     kompose.cmd: kompose convert
     kompose.version: 1.26.0 (40646f47)
-  creationTimestamp: null
   labels:
     io.kompose.service: web
   name: web
@@ -19,7 +18,6 @@ spec:
       annotations:
         kompose.cmd: kompose convert
         kompose.version: 1.26.0 (40646f47)
-      creationTimestamp: null
       labels:
         io.kompose.service: web
     spec:
@@ -34,7 +32,7 @@ spec:
             - name: CLICKHOUSE_VERIFY
               value: "false"
             - name: DATABASE_URL
-              value: postgres://posthog:posthog@10.105.110.19:5432/posthog
+              value: postgres://posthog:posthog@db:5432/posthog
             - name: DISABLE_SECURE_SSL_REDIRECT
               value: "true"
             - name: KAFKA_HOSTS
@@ -48,7 +46,7 @@ spec:
             - name: PGUSER
               value: posthog
             - name: REDIS_URL
-              value: redis://10.96.227.126:6379/
+              value: redis://redis:6379/
             - name: SECRET_KEY
               value: thisisaverysecretkey
           image: posthog/posthog:latest
